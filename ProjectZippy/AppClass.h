@@ -15,6 +15,7 @@ Application: Project Zippy
 #include <SFML\Graphics.hpp>
 #include "MyBoundingObjectManager.h"
 #include "EnvironmentManager.h"
+#include "BulletManager.h"
 #include "Player.h"
 #include "MyOctant.h"
 
@@ -23,13 +24,9 @@ using namespace ReEng; //Using ReEng namespace to use all the classes in the dll
 class AppClass : public ReEngAppClass
 {
 	double fTimeSpan = 0;
-	float bulletTimer = 0.0f;
-	float bulletTimerStart = 0.0f;
-	GameObject* Bullet = nullptr;
-	vector3 bulletPos = vector3(0.0f);
-	vector3 bulletForward = vector3(0.0f);
 	MyBoundingObjectManager* BOMngr = MyBoundingObjectManager::GetInstance();
 	EnvironmentManager* GOMngr = EnvironmentManager::GetInstance();
+	BulletManager* BTMngr = BulletManager::GetInstance();
 	Player* player = nullptr;
 	MyOctant* mainOctant = nullptr;
 

@@ -5,15 +5,19 @@ BulletManager* BulletManager::instance = nullptr;
 BulletManager::BulletManager()
 {
 	bulletCount = ceilf(bulletLifeSpan / bulletFireRate);
-	for (int i = 0; i < bulletCount; i++)
-	{
-		bullets.push_back(new Bullet(i, bulletSpeed, bulletLifeSpan));
-	}
 }
 
 BulletManager::~BulletManager()
 {
 
+}
+
+void BulletManager::Setup()
+{
+	for (int i = 0; i < bulletCount; i++)
+	{
+		bullets.push_back(new Bullet(i, bulletSpeed, bulletLifeSpan));
+	}
 }
 
 void BulletManager::Update(double dt)
@@ -42,11 +46,10 @@ void BulletManager::Fire(vector3 pos, vector3 forward)
 	}
 }
 
-void BulletManager::Update(double dt)
-{
-}
-
 void BulletManager::Render()
 {
-
+	for (int i = 0; i < bullets.size(); i++)
+	{
+		bullets[i]->Render();
+	}
 }

@@ -11,16 +11,11 @@ void AppClass::InitWindow(String a_sWindowName)
 
 void AppClass::InitVariables(void)
 {
-	player = new Player();
-
 	//Reset the selection to -1, -1
 	m_selection = std::pair<int, int>(-1, -1);
-	
-	Bullet = new GameObject(
-		"Bullet",
-		"Bullet.obj",
-		"Bullet",
-		glm::translate(vector3(0.0f, -1.0f, 0.0f)));
+
+	player = new Player();
+	BTMngr->Setup();
 		
 	GOMngr->SetGO(
 		"MainCube",
@@ -182,15 +177,11 @@ void AppClass::Update(void)
 
 	//Call the arcball method
 	ArcBall();
-	Bullet->Render();
 	GOMngr->Render();
 
-	if (toggleO)
-		mainOctant->Display();
-
-	//timer for bullets
-	bulletTimer += fTimeSpan;
-	Bullet->Translate(bulletForward); 
+	//Update and render bullet manager
+	BTMngr->Update(fTimeSpan);
+	BTMngr->Render();
 
 	//Handle moving object octant locations
 	mainOctant->Remove(player->GetBO());
@@ -209,6 +200,10 @@ void AppClass::Update(void)
 	//Print info on the screen
 	m_pMeshMngr->PrintLine(m_pSystem->GetAppName(), REWHITE);
 	m_pMeshMngr->PrintLine("FPS: " + std::to_string(nFPS), REWHITE);
+
+	//Display Octant
+	if (toggleO)
+		mainOctant->Display();
 }
 
 void AppClass::Display(void)

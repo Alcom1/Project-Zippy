@@ -6,8 +6,8 @@ class Bullet : public GameObject
 private:
 	bool active;
 	float speed;
-	bool lifeSpan;
-	bool lifeSpanCounter;
+	float lifeSpan;
+	float lifeSpanCounter;
 public:
 	Bullet(int num, float inspeed, float inlifeSpan) : GameObject(
 		"Bullet_" + num,

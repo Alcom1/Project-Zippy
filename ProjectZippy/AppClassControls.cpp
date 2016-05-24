@@ -29,12 +29,9 @@ void AppClass::ProcessKeyboard(void)
 		fSpeed *= 10.0f;
 
 	//shoot
-	if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && bulletTimer > bulletTimerStart + 1) {
-		bulletTimerStart = bulletTimer;
-		std::cout << "shoot" << std::endl;
-		bulletPos = m_pCameraMngr->GetPosition();
-		bulletForward = m_pCameraMngr->GetForward();
-		Bullet->SetModelMatrix(glm::translate(bulletPos));
+	if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+	{
+		BTMngr->Fire(m_pCameraMngr->GetPosition(), m_pCameraMngr->GetForward());
 	}
 
 	//Move forward

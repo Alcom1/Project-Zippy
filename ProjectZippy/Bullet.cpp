@@ -10,6 +10,7 @@ void Bullet::Spawn(vector3 pos, vector3 forward)
 	active = true;
 	SetModelMatrix(glm::translate(pos));
 	vel = forward * speed;
+	std::cout << glm::length(vel) << std::endl;
 	lifeSpanCounter = 0.0f;
 }
 
