@@ -158,6 +158,8 @@ xcopy "$(SolutionDir)include\RE\Shaders" "$(SolutionDir)_Binary\Shaders" /y</Com
   <ItemGroup>
     <ClCompile Include="AppClass.cpp" />
     <ClCompile Include="AppClassControls.cpp" />
+    <ClCompile Include="Bullet.cpp" />
+    <ClCompile Include="BulletManager.cpp" />
     <ClCompile Include="EnvironmentManager.cpp" />
     <ClCompile Include="GameWorldManager.cpp" />
     <ClCompile Include="Main.cpp" />
@@ -170,6 +172,8 @@ xcopy "$(SolutionDir)include\RE\Shaders" "$(SolutionDir)_Binary\Shaders" /y</Com
   <ItemGroup>
     <ClInclude Include="..\res\Resource.h" />
     <ClInclude Include="AppClass.h" />
+    <ClInclude Include="Bullet.h" />
+    <ClInclude Include="BulletManager.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameWorldManager.h" />
     <ClInclude Include="EnvironmentManager.h" />

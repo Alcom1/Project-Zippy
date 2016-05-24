@@ -2,17 +2,19 @@
 #define __BulletManager_H_
 
 #include <SFML\Graphics.hpp>
-#include "GameObject.h"
+#include "Bullet.h"
 
 class BulletManager
 {
 	static BulletManager* instance;
 public:
-	int bulletCount = 0;
-	float bulletVelocity = 3.0f;
-	float bulletLifeSpan = 0.5f;
+	int bulletCount;
+	float bulletSpeed = 3.0f;
+	float bulletLifeSpan = 1.0f;
+	float bulletFireRate = 0.5f;
+	float bulletFireRateCounter = 0.0f;
 
-	std::vector<GameObject*> bullets;
+	std::vector<Bullet*> bullets;
 	BulletManager();
 	~BulletManager();
 
@@ -35,7 +37,9 @@ public:
 		return instance;
 	};
 
-	//void SetGO(std::string objectName, std::string modelName, std::string colID, matrix4 intransform);
+	void Update(double dt);
+
+	void Fire(vector3 pos, vector3 forward);
 
 	void Render();
 };
