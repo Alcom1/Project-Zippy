@@ -12,16 +12,9 @@ void AppClass::InitWindow(String a_sWindowName)
 void AppClass::InitVariables(void)
 {
 	player = new Player();
-	BOMngr->coreHealth = 10;
 
 	//Reset the selection to -1, -1
 	m_selection = std::pair<int, int>(-1, -1);
-
-	//Load a model onto the Mesh manager
-	spawner1 = new EnemyManager(vector3(0.0f, 2.0f, -30.0f), 180.0f, 12);
-	spawner2 = new EnemyManager(vector3(0.0f, 2.0f, 30.0f), 0.0f, 8);
-	spawner3 = new EnemyManager(vector3(-30.0f, 2.0f, 0.0f), -90.0f, 4);
-	spawner4 = new EnemyManager(vector3(30.0f, 2.0f, 0.0f), 90.0f, 0);
 	
 	Bullet = new GameObject(
 		"Bullet",
@@ -159,16 +152,11 @@ void AppClass::InitVariables(void)
 		"CenterFloorCube.obj",
 		"wall",
 		glm::translate(vector3(0.0f, 15.0f, 0.0f)) * glm::scale(vector3(70.0f, 1.0f, 70.0f)));
-	GOMngr->SetGO(
-		"Core",
-		"Core.obj",
-		"core",
-		glm::translate(vector3(0.0f, 2.0f, 0.0f)) * glm::scale(vector3(3.0f, 3.0f, 3.0f)));
 
 	mainOctant = new MyOctant();
 	mainOctant->InitiatePopulation();
 
-	state = GameState::start;
+	state = GameState::play;
 }
 
 void AppClass::Update(void)
@@ -224,7 +212,6 @@ void AppClass::Update(void)
 	}
 
 	if (state == GameState::end) {
-		BOMngr->coreHealth = 10;
 		m_v4ClearColor = vector4(0.051f, 0.412f, 0.671f, 0.0f);
 		m_pMeshMngr->PrintLine("", REBLUE);
 		m_pMeshMngr->PrintLine("", REBLUE);
@@ -257,12 +244,7 @@ void AppClass::Update(void)
 
 		//timer for bullets
 		bulletTimer += fTimeSpan;
-		Bullet->Translate(bulletForward);
-
-		spawner1->Update(fTimeSpan);
-		spawner2->Update(fTimeSpan);
-		spawner3->Update(fTimeSpan);
-		spawner4->Update(fTimeSpan);
+		Bullet->Translate(bulletForward); 
 
 		std::vector<MyBoundingObjectClass*> enemies = BOMngr->GetBOsByID("enem");
 		for (uint i = 0; i < enemies.size(); i++)
@@ -292,12 +274,6 @@ void AppClass::Update(void)
 		//Print info on the screen
 		m_pMeshMngr->PrintLine(m_pSystem->GetAppName(), REWHITE);
 		m_pMeshMngr->PrintLine("FPS: " + std::to_string(nFPS), REWHITE);
-		m_pMeshMngr->Print("Core Health: " + std::to_string(BOMngr->coreHealth), REWHITE);
-	}
-
-	// End the game if the player's or the core's health drops to zero
-	if (BOMngr->coreHealth <= 0) {
-		state = GameState::end;
 	}
 }
 

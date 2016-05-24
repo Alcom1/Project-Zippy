@@ -11,7 +11,6 @@ class MyBoundingObjectManager
 	static MyBoundingObjectManager* instance;
 public:
 	int BOnum = 0;
-	int coreHealth = 10;
 	std::vector<MyBoundingObjectClass*> boundingObjects;
 	MyBoundingObjectManager();
 	~MyBoundingObjectManager();

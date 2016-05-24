@@ -13,7 +13,6 @@ Application: Project Zippy
 
 #include "RE\ReEngAppClass.h"
 #include <SFML\Graphics.hpp>
-#include "EnemyManager.h"
 #include "MyBoundingObjectManager.h"
 #include "EnvironmentManager.h"
 #include "Player.h"
@@ -51,11 +50,6 @@ class AppClass : public ReEngAppClass
 	GameState state;
 	bool pPressed = false;
 	bool spacePressed = false;
-
-	EnemyManager* spawner1 = nullptr;
-	EnemyManager* spawner2 = nullptr;
-	EnemyManager* spawner3 = nullptr;
-	EnemyManager* spawner4 = nullptr;
 public:
 	typedef ReEngAppClass super;
 

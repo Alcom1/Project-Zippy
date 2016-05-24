@@ -119,8 +119,6 @@ MyBoundingObjectClass* MyBoundingObjectManager::GetBO(std::string a_sName) {
 	}
 }
 
-
-
 std::vector<MyBoundingObjectClass*> MyBoundingObjectManager::GetBOsByID(std::string a_id)
 {
 	std::vector<MyBoundingObjectClass*> tempBOs;
@@ -173,96 +171,6 @@ void MyBoundingObjectManager::CheckSingleCollision(MyBoundingObjectClass* obj1, 
 		else
 		{
 			bOWall->SetColor(REGREEN);
-		}
-	}
-
-	else if (
-		(obj1->GetColID() == "play" && obj2->GetColID() == "core") ||
-		(obj1->GetColID() == "core" && obj2->GetColID() == "play"))
-	{
-		MyBoundingObjectClass* bOPlay = obj1->GetColID() == "play" ? obj1 : obj2;
-		MyBoundingObjectClass* bOWall = obj1->GetColID() == "core" ? obj1 : obj2;
-
-		if (bOWall->IsCollidingABB(bOPlay))
-		{
-			if (bOWall->IsCollidingSOB(bOPlay))
-			{
-				bOWall->SetColor(RERED);
-			}
-			else
-			{
-				bOWall->SetColor(REGREEN);
-			}
-		}
-		else
-		{
-			bOWall->SetColor(REGREEN);
-		}
-	}
-
-	else if (
-		(obj1->GetColID() == "play" && obj2->GetColID() == "enem") ||
-		(obj1->GetColID() == "enem" && obj2->GetColID() == "play"))
-	{
-		MyBoundingObjectClass* bOPlay = obj1->GetColID() == "play" ? obj1 : obj2;
-		MyBoundingObjectClass* bOEnem = obj1->GetColID() == "enem" ? obj1 : obj2;
-
-		if (bOEnem->getCollisions()) {
-
-			if (bOEnem->IsCollidingABB(bOPlay))
-			{
-				if (bOEnem->IsCollidingSOB(bOPlay))
-				{
-					bOEnem->SetColor(RERED);
-				}
-				else
-				{
-					bOEnem->SetColor(REGREEN);
-				}
-			}
-			else
-			{
-				bOEnem->SetColor(REGREEN);
-			}
-		}
-	}
-
-	else if (
-		(obj1->GetColID() == "Bullet" && obj2->GetColID() == "enem") ||
-		(obj1->GetColID() == "enem" && obj2->GetColID() == "Bullet"))
-	{
-		MyBoundingObjectClass* bObullet = obj1->GetColID() == "Bullet" ? obj1 : obj2;
-		MyBoundingObjectClass* bOEnem = obj1->GetColID() == "enem" ? obj1 : obj2;
-		if (bOEnem->getCollisions())
-		{
-			if (bOEnem->IsCollidingABB(bObullet))
-			{
-				bOEnem->setParentVisibility(false);
-				bOEnem->SetVisibility(false);
-				bOEnem->setCollisions(false);
-			}
-		}
-		else
-		{
-			bOEnem->SetColor(REGREEN);
-		}
-	}
-
-	else if (
-		(obj1->GetColID() == "enem" && obj2->GetColID() == "core") ||
-		(obj1->GetColID() == "core" && obj2->GetColID() == "enem"))
-	{
-		MyBoundingObjectClass* bOCore = obj1->GetColID() == "core" ? obj1 : obj2;
-		MyBoundingObjectClass* bOEnem = obj1->GetColID() == "enem" ? obj1 : obj2;
-		if (bOEnem->getCollisions())
-		{
-			if (bOEnem->IsCollidingABB(bOCore))
-			{
-				bOEnem->setParentVisibility(false);
-				bOEnem->SetVisibility(false);
-				bOEnem->setCollisions(false);
-				coreHealth -= 1;
-			}
 		}
 	}
 }
