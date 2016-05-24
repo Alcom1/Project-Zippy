@@ -31,7 +31,8 @@ void AppClass::ProcessKeyboard(void)
 	//shoot
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 	{
-		BTMngr->Fire(m_pCameraMngr->GetPosition(), m_pCameraMngr->GetForward());
+		vector3 offset = glm::normalize(glm::cross(m_pCameraMngr->GetForward(), m_pCameraMngr->GetRightward())) * 0.5f;
+		BTMngr->Fire(m_pCameraMngr->GetPosition() + offset, m_pCameraMngr->GetForward());
 	}
 
 	//Move forward

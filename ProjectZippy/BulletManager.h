@@ -9,9 +9,9 @@ class BulletManager
 	static BulletManager* instance;
 public:
 	int bulletCount;
-	float bulletSpeed = 12.0f;
+	float bulletSpeed = 60.0f;
 	float bulletLifeSpan = 1.0f;
-	float bulletFireRate = 0.5f;
+	float bulletFireRate = 0.25f;
 	float bulletFireRateCounter = 0.0f;
 
 	std::vector<Bullet*> bullets;
