@@ -78,12 +78,13 @@ void AppClass::Display(void)
 {
 	//clear the screen
 	ClearScreen();
-	//Render the grid based on the camera's mode:
-	m_pMeshMngr->AddGridToRenderList(m_pCameraMngr->GetCameraMode());
-	m_pMeshMngr->Render(); //renders the render list
+
+	//Render and reset render
+	m_pMeshMngr->Render();
 	m_pMeshMngr->ResetRenderList();
-	//m_pMeshMngr->ResetRenderList(); //Reset the Render list after render
-	m_pGLSystem->GLSwapBuffers(); //Swaps the OpenGL buffers
+
+	//Swaps the OpenGL buffers
+	m_pGLSystem->GLSwapBuffers();
 }
 
 void AppClass::Release(void)

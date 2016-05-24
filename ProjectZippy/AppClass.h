@@ -36,20 +36,11 @@ class AppClass : public ReEngAppClass
 	int updateRelianceDelay = 120;	//Number of frames before app uses system FPS for dt instead of LapClock
 	int updateRelianceCounter = 0;	//Counter for those frames
 
-	bool bKeyO = false;
-	bool bVisibleO = false;
-
-	enum class GameState
-	{
-		start,
-		play,
-		pause,
-		end
-	};
-
-	GameState state;
-	bool pPressed = false;
-	bool spacePressed = false;
+	//Bool states keys
+	bool pressedO = false;
+	bool pressedI = false;
+	bool toggleO = false;
+	bool pressedSpace = false;
 public:
 	typedef ReEngAppClass super;
 

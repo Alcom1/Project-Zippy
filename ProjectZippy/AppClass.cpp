@@ -155,8 +155,6 @@ void AppClass::InitVariables(void)
 
 	mainOctant = new MyOctant();
 	mainOctant->InitiatePopulation();
-
-	state = GameState::play;
 }
 
 void AppClass::Update(void)
@@ -178,125 +176,46 @@ void AppClass::Update(void)
 		fTimeSpan = 1.0 / m_pSystem->GetFPS();
 	}
 
-	if (state == GameState::start) {
-		m_v4ClearColor = vector4(0.051f, 0.412f, 0.671f, 0.0f);
-		m_pMeshMngr->PrintLine("", REWHITE);
-		m_pMeshMngr->PrintLine("", REWHITE);
-		m_pMeshMngr->PrintLine("", REWHITE);
-		m_pMeshMngr->PrintLine("", REWHITE);
-		m_pMeshMngr->PrintLine("", REWHITE);
-		m_pMeshMngr->PrintLine("", REWHITE);
-		m_pMeshMngr->PrintLine("", REWHITE);
-		m_pMeshMngr->PrintLine("", REWHITE);
-		m_pMeshMngr->PrintLine("                       Welcome to Project Zippy.", REWHITE);
-		m_pMeshMngr->PrintLine("", REWHITE);
-		m_pMeshMngr->PrintLine("", REWHITE);
-		m_pMeshMngr->PrintLine("                          Press Space to play.", REWHITE);
-	}
+	//First person camera movement
+	if (m_bFPC == true)
+		CameraRotation();
 
-	if (state == GameState::pause) {
-		m_v4ClearColor = vector4(0.051f, 0.412f, 0.671f, 0.0f);
-		m_pMeshMngr->PrintLine("", REWHITE);
-		m_pMeshMngr->PrintLine("", REWHITE);
-		m_pMeshMngr->PrintLine("", REWHITE);
-		m_pMeshMngr->PrintLine("", REWHITE);
-		m_pMeshMngr->PrintLine("", REWHITE);
-		m_pMeshMngr->PrintLine("", REWHITE);
-		m_pMeshMngr->PrintLine("", REWHITE);
-		m_pMeshMngr->PrintLine("", REWHITE);
-		m_pMeshMngr->PrintLine("                             Game Paused.", REWHITE);
-		m_pMeshMngr->PrintLine("", REWHITE);
-		m_pMeshMngr->PrintLine("", REWHITE);
-		m_pMeshMngr->PrintLine("                         Press P to continue.", REBLACK);
-		m_pMeshMngr->PrintLine("                           Press X to quit.", REBLACK);
-	}
+	//Call the arcball method
+	ArcBall();
+	Bullet->Render();
+	GOMngr->Render();
 
-	if (state == GameState::end) {
-		m_v4ClearColor = vector4(0.051f, 0.412f, 0.671f, 0.0f);
-		m_pMeshMngr->PrintLine("", REBLUE);
-		m_pMeshMngr->PrintLine("", REBLUE);
-		m_pMeshMngr->PrintLine("", REBLUE);
-		m_pMeshMngr->PrintLine("", REBLUE);
-		m_pMeshMngr->PrintLine("", REBLUE);
-		m_pMeshMngr->PrintLine("", REBLUE);
-		m_pMeshMngr->PrintLine("", REBLUE);
-		m_pMeshMngr->PrintLine("", REBLUE);
-		m_pMeshMngr->PrintLine("                              Game Over!", REBLUE);
-		m_pMeshMngr->PrintLine("", REBLUE);
-		m_pMeshMngr->PrintLine("", REBLUE);
-		m_pMeshMngr->PrintLine("               Press Space to return to the main screen.", REBLUE);
-	}
+	if (toggleO)
+		mainOctant->Display();
 
-	if (state == GameState::play) {
+	//timer for bullets
+	bulletTimer += fTimeSpan;
+	Bullet->Translate(bulletForward); 
 
-		//First person camera movement
-		if (m_bFPC == true)
-			CameraRotation();
+	//Handle moving object octant locations
+	mainOctant->Remove(player->GetBO());
+	mainOctant->Remove(BOMngr->GetBO("Bullet"));
+	mainOctant->Populate(player->GetBO());
+	mainOctant->Populate(BOMngr->GetBO("Bullet"));
+	mainOctant->Clear();
 
-		//Call the arcball method
-		ArcBall();
-		Bullet->Render();
-		GOMngr->Render();
-
-		if (bVisibleO) {
-			mainOctant->Display();
-		}
-
-		//timer for bullets
-		bulletTimer += fTimeSpan;
-		Bullet->Translate(bulletForward); 
-
-		std::vector<MyBoundingObjectClass*> enemies = BOMngr->GetBOsByID("enem");
-		for (uint i = 0; i < enemies.size(); i++)
-		{
-			mainOctant->Remove(enemies[i]);
-		}
-		mainOctant->Remove(player->GetBO());
-		mainOctant->Remove(BOMngr->GetBO("Bullet"));
-		for (uint i = 0; i < enemies.size(); i++)
-		{
-			if(enemies[i]->getCollisions())	//Only add active enemies
-				mainOctant->Populate(enemies[i]);
-		}
-		mainOctant->Populate(player->GetBO());
-		mainOctant->Populate(BOMngr->GetBO("Bullet"));
-		mainOctant->Clear();
-
-		player->MovePhysics(fTimeSpan);
-		mainOctant->CheckCollisions(std::vector<MyBoundingObjectClass*>());
-		//BOMngr->CheckColissions();
-		//BOMngr->Render();
-		//mainOctant->PrintPopulation();
+	//Physics and collisions
+	player->MovePhysics(fTimeSpan);
+	mainOctant->CheckCollisions(std::vector<MyBoundingObjectClass*>());
 		
-		//Indicate the FPS
-		int nFPS = 1.0 / fTimeSpan;
+	//Indicate the FPS
+	int nFPS = 1.0 / fTimeSpan;
 
-		//Print info on the screen
-		m_pMeshMngr->PrintLine(m_pSystem->GetAppName(), REWHITE);
-		m_pMeshMngr->PrintLine("FPS: " + std::to_string(nFPS), REWHITE);
-	}
+	//Print info on the screen
+	m_pMeshMngr->PrintLine(m_pSystem->GetAppName(), REWHITE);
+	m_pMeshMngr->PrintLine("FPS: " + std::to_string(nFPS), REWHITE);
 }
 
 void AppClass::Display(void)
 {
 	//clear the screen
 	ClearScreen();
-	//Render the grid based on the camera's mode:
-	/*switch (m_pCameraMngr->GetCameraMode())
-	{
-	default: //Perspective
-	m_pMeshMngr->AddGridToQueue(1.0f, REAXIS::XY); //renders the XY grid with a 100% scale
-	break;
-	case CAMERAMODE::CAMROTHOX:
-	m_pMeshMngr->AddGridToQueue(1.0f, REAXIS::YZ, RERED * 0.75f); //renders the YZ grid with a 100% scale
-	break;
-	case CAMERAMODE::CAMROTHOY:
-	m_pMeshMngr->AddGridToQueue(1.0f, REAXIS::XZ, REGREEN * 0.75f); //renders the XZ grid with a 100% scale
-	break;
-	case CAMERAMODE::CAMROTHOZ:
-	m_pMeshMngr->AddGridToQueue(1.0f, REAXIS::XY, REBLUE * 0.75f); //renders the XY grid with a 100% scale
-	break;
-	}*/
+
 	m_pMeshMngr->Render(); //renders the render list
 
 	m_pMeshMngr->ResetRenderList();

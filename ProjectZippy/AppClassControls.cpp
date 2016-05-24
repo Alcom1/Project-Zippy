@@ -27,115 +27,74 @@ void AppClass::ProcessKeyboard(void)
 #pragma region Camera Positioning
 	if(bModifier)
 		fSpeed *= 10.0f;
-	if (state == GameState::play) {
 
-		//shoot
-		if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && bulletTimer > bulletTimerStart + 1) {
-			bulletTimerStart = bulletTimer;
-			std::cout << "shoot" << std::endl;
-			bulletPos = m_pCameraMngr->GetPosition();
-			bulletForward = m_pCameraMngr->GetForward();
-			Bullet->SetModelMatrix(glm::translate(bulletPos));
-		}
+	//shoot
+	if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && bulletTimer > bulletTimerStart + 1) {
+		bulletTimerStart = bulletTimer;
+		std::cout << "shoot" << std::endl;
+		bulletPos = m_pCameraMngr->GetPosition();
+		bulletForward = m_pCameraMngr->GetForward();
+		Bullet->SetModelMatrix(glm::translate(bulletPos));
+	}
 
-		//Move forward
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+	//Move forward
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+	{
+		player->MoveForward(fTimeSpan);
+	}
+
+	//Move backwards
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+	{
+		player->MoveBackwards(fTimeSpan);
+	}
+
+	//Move left
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+		player->MoveLeft(fTimeSpan);
+
+	//Move right
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+		player->MoveRight(fTimeSpan);
+
+	//Jump!
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+	{
+		if (!pressedSpace)
+			player->Jump();
+		pressedSpace = true;
+	}
+	else
+	{
+		pressedSpace = false;
+	}
+
+	//Display BOs
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::I))
+	{
+		if (!pressedI)
 		{
-			player->MoveForward(fTimeSpan);
-		}
-
-		//Move backwards
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-		{
-			player->MoveBackwards(fTimeSpan);
-		}
-
-		//Move left
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-			player->MoveLeft(fTimeSpan);
-
-		//Move right
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-			player->MoveRight(fTimeSpan);
-
-		//Jump!
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
-			if (!spacePressed)
-				player->Jump();
-			spacePressed = true;
-		}
-		else {
-			spacePressed = false;
-		}
-
-
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::I))
 			BOMngr->FlipVisibility();
-
-		// Enter pause
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::P)) {
-			if (!pPressed)
-				state = GameState::pause;
-			pPressed = true;
 		}
-
-		else {
-			pPressed = false;
-		}
-
-		// Enter end
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::X))
-			state = GameState::end;
-
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::O)) {
-			if (!bKeyO) {
-				bVisibleO = !bVisibleO;
-			}
-			bKeyO = true;
-		}
-		else {
-			bKeyO = false;
-		}
+		pressedI = true;
+	}
+	else
+	{
+		pressedI = false;
 	}
 
-	if (state == GameState::start) {
-		// Enter play
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
-			if (!spacePressed)
-				state = GameState::play;
-			spacePressed = true;
+	//Display octree
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::O))
+	{
+		if (!pressedO)
+		{
+			toggleO = !toggleO;
 		}
-		else {
-			spacePressed = false;
-		}
+		pressedO = true;
 	}
-
-	if (state == GameState::pause) {
-		// Enter play
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::P)) {
-			if (!pPressed)
-				state = GameState::play;
-			pPressed = true;
-		}
-		else {
-			pPressed = false;
-		}
-
-		// Enter end
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::X))
-			state = GameState::end;
-	}
-
-	if (state == GameState::end) {
-		// Enter start
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
-			if(!spacePressed)
-				state = GameState::start;
-			spacePressed = true;
-		}
-		else {
-			spacePressed = false;
-		}
+	else
+	{
+		pressedO = false;
 	}
 
 #pragma endregion
