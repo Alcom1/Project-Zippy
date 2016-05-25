@@ -18,6 +18,7 @@ void Bullet::Update(double dt)
 		if (lifeSpanCounter >= lifeSpan)
 		{
 			active = false;
+			SetModelMatrix(glm::translate(0.0f, -1.0f, 0.0f));
 		}
 	}
 }

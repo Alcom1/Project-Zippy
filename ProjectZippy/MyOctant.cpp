@@ -15,7 +15,7 @@ void MyOctant::Init(void)
 	if (m_bHead)
 	{
 		m_fSize = 120;
-		m_v3Position = vector3(13.5, 22.0, 13.5);
+		m_v3Position = vector3(0.0, 22.0, 0.0);
 	}
 }
 void MyOctant::Swap(MyOctant& other)

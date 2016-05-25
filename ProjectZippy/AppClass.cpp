@@ -218,6 +218,9 @@ void AppClass::Update(void)
 	//Display Octant
 	if (toggleO)
 		mainOctant->Display();
+	
+	//Display BOs
+	BOMngr->Render();
 }
 
 void AppClass::Display(void)

@@ -12,7 +12,7 @@ public:
 		"Bullet_" + num,
 		"Bullet.obj",
 		"bull",
-		glm::translate(vector3(0.0f, 1.0f, 0.0f)))
+		glm::translate(vector3(0.0f, -1.0f, 0.0f)))
 	{
 		speed = inspeed;
 		acc = vector3(0.0f);

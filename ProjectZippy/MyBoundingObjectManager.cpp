@@ -182,9 +182,10 @@ void MyBoundingObjectManager::CheckSingleCollision(MyBoundingObjectClass* obj1, 
 		MyBoundingObjectClass* bOBull = obj1->GetColID() == "bull" ? obj1 : obj2;
 		MyBoundingObjectClass* bOWall = obj1->GetColID() == "wall" ? obj1 : obj2;
 
-		if (bOWall->IsCollidingABB(bOBull))
+		if (bOWall->IsCollidingSAT(bOBull))
 		{
 			bOBull->GetParent()->SetActive(false);
+			bOBull->GetParent()->SetModelMatrix(glm::translate(0.0f, -1.0f, 0.0f));
 		}
 	}
 }

@@ -86,7 +86,7 @@ void MyBoundingObjectClass::SubConstruct(std::vector<vector3> a_lVectorList, std
 	colID = incolID;
 
 	// set the visibility
-	m_bIsVisible = true;
+	m_bIsVisible = false;
 
 	// Set color
 	m_v3Color = vector3(1.0f);
