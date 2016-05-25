@@ -1,4 +1,5 @@
 #include "MyBoundingObjectManager.h"
+#include "GameObject.h"
 
 MyBoundingObjectManager* MyBoundingObjectManager::instance = nullptr;
 
@@ -171,6 +172,19 @@ void MyBoundingObjectManager::CheckSingleCollision(MyBoundingObjectClass* obj1, 
 		else
 		{
 			bOWall->SetColor(REGREEN);
+		}
+	}
+
+	else if (
+		(obj1->GetColID() == "bull" && obj2->GetColID() == "wall") ||
+		(obj1->GetColID() == "wall" && obj2->GetColID() == "bull"))
+	{
+		MyBoundingObjectClass* bOBull = obj1->GetColID() == "bull" ? obj1 : obj2;
+		MyBoundingObjectClass* bOWall = obj1->GetColID() == "wall" ? obj1 : obj2;
+
+		if (bOWall->IsCollidingABB(bOBull))
+		{
+			bOBull->GetParent()->SetActive(false);
 		}
 	}
 }

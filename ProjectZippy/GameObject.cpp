@@ -47,6 +47,11 @@ bool GameObject::GetActive()
 	return active;
 }
 
+void GameObject::SetActive(bool inactive)
+{
+	active = inactive;
+}
+
 //Set the matrix of the object and its components
 void GameObject::SetModelMatrix(matrix4 intransform)
 {

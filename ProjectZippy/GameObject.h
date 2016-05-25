@@ -23,6 +23,7 @@ public:
 	~GameObject();								//Destructor
 	MyBoundingObjectClass* GetBO();
 	bool GetActive();
+	void SetActive(bool inactive);
 	void SetModelMatrix(matrix4 intransform);	//Set the matrix of the object and its components
 	virtual void Translate(vector3 dir);		//Translate the object and its components
 	void EstablishModelMatrix();				//Move the object's model and BO to match itself
