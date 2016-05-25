@@ -48,6 +48,7 @@ public:
 	MyBoundingObjectClass(MyBoundingObjectClass const &other);	// Copy Constructor
 	MyBoundingObjectClass& operator=(MyBoundingObjectClass const& other);	// Copy Assignment Operator
 	~MyBoundingObjectClass(void);	// Destructor
+	GameObject* GetParent(void);
 	vector3 GetGlobalCenter(void);	// Gets the center in global coordinates
 	matrix4 GetGlobalCenterMatrix(void);	// Gets the matrix of the center in global coordinates
 	float GetRadius(void);	// Gets the object's radius
@@ -63,7 +64,6 @@ public:
 	bool IsCollidingABB(MyBoundingObjectClass * const a_pOther);	// Checks for ABB collision
 	void FlipVisibility(void);	// Flips the visibility of the bounding object
 	void SetVisibility(bool bvis);	//sets the visibility to a specific value
-	void setParentVisibility(bool bvis);
 	vector3 GetColor(void);	// Gets the color of the bounding object
 	void SetColor(vector3 a_v3Color);	// Sets the color of the bounding object
 	void Render(void);	// Renders the bounding object

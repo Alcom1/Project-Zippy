@@ -184,10 +184,24 @@ void AppClass::Update(void)
 	BTMngr->Render();
 
 	//Handle moving object octant locations
+	std::vector<MyBoundingObjectClass*> bullets = BOMngr->GetBOsByID("bull");
+	for (uint i = 0; i < bullets.size(); i++)
+	{
+		mainOctant->Remove(bullets[i]);
+	}
 	mainOctant->Remove(player->GetBO());
 	mainOctant->Remove(BOMngr->GetBO("Bullet"));
+	for (uint i = 0; i < bullets.size(); i++)
+	{
+		mainOctant->Remove(bullets[i]);
+	}
 	mainOctant->Populate(player->GetBO());
 	mainOctant->Populate(BOMngr->GetBO("Bullet"));
+	for (uint i = 0; i < bullets.size(); i++)
+	{
+		if (bullets[i]->GetParent()->GetActive())
+			mainOctant->Populate(bullets[i]);
+	}
 	mainOctant->Clear();
 
 	//Physics and collisions

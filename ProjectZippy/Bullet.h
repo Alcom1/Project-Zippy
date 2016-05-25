@@ -4,7 +4,6 @@
 class Bullet : public GameObject
 {
 private:
-	bool active;
 	float speed;
 	float lifeSpan;
 	float lifeSpanCounter;
@@ -21,8 +20,6 @@ public:
 		lifeSpan = inlifeSpan;
 		lifeSpanCounter = inlifeSpan;
 	}
-
-	bool GetActive();
 
 	void Spawn(vector3 pos, vector3 forward);
 

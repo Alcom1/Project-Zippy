@@ -188,6 +188,11 @@ MyBoundingObjectClass::~MyBoundingObjectClass()
 	Release();
 }
 
+GameObject* MyBoundingObjectClass::GetParent(void)
+{
+	return parent;
+}
+
 // Gets the center in global coordinates
 vector3 MyBoundingObjectClass::GetGlobalCenter()
 {
@@ -493,10 +498,6 @@ void MyBoundingObjectClass::FlipVisibility()
 void MyBoundingObjectClass::SetVisibility(bool bvis)
 {
 	m_bIsVisible = bvis;
-}
-
-void MyBoundingObjectClass::setParentVisibility(bool bvis) {
-	parent->setVisibility(bvis);
 }
 
 // Gets the color of the bounding object

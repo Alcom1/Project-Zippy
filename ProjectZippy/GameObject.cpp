@@ -9,9 +9,9 @@ GameObject::GameObject(std::string objectName, std::string modelName, std::strin
 	BOMngr->SetBO(m_pMeshMngr->GetVertexList(objectName), objectName, colID, this);
 	BO = BOMngr->GetBO(BOMngr->GetBOCount() - 1);
 	SetModelMatrix(intransform);
-	visibility = true;
 	acc = vector3(0, 0, 0);
 	vel = vector3(0, 0, 0);
+	active = true;
 }
 
 //Constructor based on radius and other player properties
@@ -24,6 +24,8 @@ GameObject::GameObject(std::string objectName, float radius, std::string colID, 
 
 	acc = inAcc;
 	vel = inVel;
+
+	active = true;
 }
 
 //Destructor
@@ -38,6 +40,11 @@ GameObject::~GameObject()
 MyBoundingObjectClass* GameObject::GetBO()
 {
 	return BO;
+}
+
+bool GameObject::GetActive()
+{
+	return active;
 }
 
 //Set the matrix of the object and its components
@@ -82,9 +89,8 @@ void GameObject::HaltVel(vector3 dir)
 //Render the object
 void GameObject::Render()
 {
-	if (visibility)
+	if (active)
 	{
 		m_pMeshMngr->AddInstanceToRenderList(name);
 	}
-		
 }

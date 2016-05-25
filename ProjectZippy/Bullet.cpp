@@ -1,10 +1,5 @@
 #include "Bullet.h"
 
-bool Bullet::GetActive()
-{
-	return active;
-}
-
 void Bullet::Spawn(vector3 pos, vector3 forward)
 {
 	active = true;
