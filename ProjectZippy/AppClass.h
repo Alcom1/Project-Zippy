@@ -37,6 +37,7 @@ class AppClass : public ReEngAppClass
 	bool pressedO = false;
 	bool pressedI = false;
 	bool toggleO = false;
+	bool toggleI = false;
 	bool pressedSpace = false;
 public:
 	typedef ReEngAppClass super;

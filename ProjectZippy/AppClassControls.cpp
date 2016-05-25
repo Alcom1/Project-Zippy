@@ -72,6 +72,7 @@ void AppClass::ProcessKeyboard(void)
 	{
 		if (!pressedI)
 		{
+			toggleI = !toggleI;
 			BOMngr->FlipVisibility();
 		}
 		pressedI = true;

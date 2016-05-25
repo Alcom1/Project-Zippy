@@ -212,13 +212,29 @@ void AppClass::Update(void)
 	int nFPS = 1.0 / fTimeSpan;
 
 	//Print info on the screen
+	m_pMeshMngr->PrintLine("");
 	m_pMeshMngr->PrintLine(m_pSystem->GetAppName(), REWHITE);
 	m_pMeshMngr->PrintLine("FPS: " + std::to_string(nFPS), REWHITE);
-
-	//Display Octant
+	m_pMeshMngr->Print("Display Octant (I): ", REWHITE);
 	if (toggleO)
+	{
+		m_pMeshMngr->PrintLine("ON", REGREENDARK);
 		mainOctant->Display();
-	
+	}
+	else
+	{
+		m_pMeshMngr->PrintLine("OFF", RERED);
+	}
+	m_pMeshMngr->Print("Display BOs    (O): ", REWHITE);
+	if (toggleI)
+	{
+		m_pMeshMngr->PrintLine("ON", REGREENDARK);
+	}
+	else
+	{
+		m_pMeshMngr->PrintLine("OFF", RERED);
+	}
+
 	//Display BOs
 	BOMngr->Render();
 }
