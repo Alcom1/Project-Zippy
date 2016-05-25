@@ -6,6 +6,7 @@ MyBoundingObjectClass.h - Contains methods to
 -----------------------------------------------*/
 #include "MyBoundingObjectClass.h"
 #include "GameObject.h"
+#include <iomanip>
 
 // Allocates member fields
 void MyBoundingObjectClass::Init()
@@ -341,7 +342,10 @@ bool MyBoundingObjectClass::IsCollidingSOB(MyBoundingObjectClass * a_otherObj)
 		vectCent[j] = glm::dot(a_otherObj->m_v3CenterG - m_v3CenterG, m_v3NAxis[j]);
 		distEdge[j] = abs(vectCent[j]) - m_v3SizeScaled[j] / 2;
 		if (distEdge[j] < 0)	//Axis discarding
+		{
+			vectCent[j] = 0;
 			distEdge[j] = 0;
+		}
 	}
 
 	//If the distance to the edge is greater than the radius, no collision.
@@ -352,20 +356,25 @@ bool MyBoundingObjectClass::IsCollidingSOB(MyBoundingObjectClass * a_otherObj)
 
 	vector3 push = vector3(0);	//Vector to push the sphere back into position.
 
-	//Set push direction to be away from the OBB
-	for (int j = 0; j < 3; j++)	//For each axis
+	//Distance to push is the radius of the sphere minus the distance to the edge
+	if (glm::length(vectCent) > 0)
 	{
-		if (distEdge[j] != 0)
+		vectCent = vector3(m_m4ToWorld * vector4(vectCent, 1.0f) - m_m4ToWorld[3]);
+		push = glm::normalize(vectCent) * (a_otherObj->m_fRadius - glm::length(distEdge));	//Make push global
+
+		float angle =  glm::angle(glm::normalize(vectCent), vector3(0, 1, 0));
+
+		std::cout << angle << std::endl;
+
+		//Threshold angle to start sliding at.
+		if (angle <= 50)
 		{
-			push[j] = -vectCent[j];
+			push.x = 0;
+			push.z = 0;
 		}
 	}
 
-	//Distance to push is the radius of the sphere minus the distance to the edge
-	if(glm::length(push) > 0)
-		push = glm::normalize(push) * (a_otherObj->m_fRadius - glm::length(distEdge));
-
-	a_otherObj->parent->Translate(-push);	//Push the sphere back into position.
+	a_otherObj->parent->Translate(push);	//Push the sphere back into position.
 	a_otherObj->parent->HaltVel(push);		//Negate any physics velocity in that direction.
 
 	return true;

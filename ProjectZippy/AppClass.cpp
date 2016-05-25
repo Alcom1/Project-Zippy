@@ -16,7 +16,7 @@ void AppClass::InitVariables(void)
 
 	player = new Player();
 	BTMngr->Setup();
-		
+
 	GOMngr->SetGO(
 		"MainCube",
 		"CenterFloorCube.obj",
