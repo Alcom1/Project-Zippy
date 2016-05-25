@@ -364,14 +364,15 @@ bool MyBoundingObjectClass::IsCollidingSOB(MyBoundingObjectClass * a_otherObj)
 
 		float angle =  glm::angle(glm::normalize(vectCent), vector3(0, 1, 0));
 
-		std::cout << angle << std::endl;
-
 		//Threshold angle to start sliding at.
-		if (angle <= 50)
+		if (angle <= 35)
 		{
 			push.x = 0;
 			push.z = 0;
 		}
+
+		push.x /= 2;
+		push.z /= 2;
 	}
 
 	a_otherObj->parent->Translate(push);	//Push the sphere back into position.
