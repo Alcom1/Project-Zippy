@@ -47,7 +47,7 @@ void Player::MoveRight(double dt)
 //Jump
 void Player::Jump()
 {
-	vel += vector3(0, 12, 0);
+	vel.y = 12;
 }
 
 //Translate the player in a direction
