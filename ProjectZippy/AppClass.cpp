@@ -61,7 +61,7 @@ void AppClass::InitVariables(void)
 		"Tower2",
 		"TowerWall.obj",
 		"wall",
-		glm::translate(vector3(-17.5f, 4.0f, 17.5f)) * glm::scale(vector3(7.0f, 7.0f, 7.0f)));
+		glm::translate(vector3(-17.5f, 4.0f, 17.5f)) * glm::rotate(90.0f, vector3(0, 1, 0)) * glm::scale(vector3(7.0f, 7.0f, 7.0f)));
 	GOMngr->SetGO(
 		"Tower3",
 		"TowerWall.obj",
@@ -81,7 +81,7 @@ void AppClass::InitVariables(void)
 		"Tower4",
 		"TowerWall.obj",
 		"wall",
-		glm::translate(vector3(17.5f, 4.0f, 17.5f)) * glm::scale(vector3(7.0f, 7.0f, 7.0f)));
+		glm::translate(vector3(17.5f, 4.0f, 17.5f)) * glm::rotate(180.0f, vector3(0, 1, 0)) * glm::scale(vector3(7.0f, 7.0f, 7.0f)));
 	GOMngr->SetGO(
 		"TopWall_1",
 		"Wall.obj",
@@ -96,12 +96,12 @@ void AppClass::InitVariables(void)
 		"BottomWall_1",
 		"Wall.obj",
 		"wall",
-		glm::translate(vector3(-14.0f, 7.5f, 28.0f)) * glm::scale(vector3(14.0f, 14.0f, 14.0f)));
+		glm::translate(vector3(-14.0f, 7.5f, 28.0f)) * glm::rotate(180.0f, vector3(0, 1, 0)) * glm::scale(vector3(14.0f, 14.0f, 14.0f)));
 	GOMngr->SetGO(
 		"BottomWall_2",
 		"Wall.obj",
 		"wall",
-		glm::translate(vector3(14.0f, 7.5f, 28.0f)) * glm::scale(vector3(14.0f, 14.0f, 14.0f)));
+		glm::translate(vector3(14.0f, 7.5f, 28.0f)) * glm::rotate(180.0f, vector3(0, 1, 0)) * glm::scale(vector3(14.0f, 14.0f, 14.0f)));
 	GOMngr->SetGO(
 		"LeftWall_1",
 		"Wall.obj",
@@ -116,12 +116,12 @@ void AppClass::InitVariables(void)
 		"RightWall_1",
 		"Wall.obj",
 		"wall",
-		glm::translate(vector3(-28.0f, 7.5f, 14.0f)) * glm::scale(vector3(14.0f, 14.0f, 14.0f)));
+		glm::translate(vector3(-28.0f, 7.5f, 14.0f)) * glm::rotate(180.0f, vector3(0, 1, 0)) * glm::scale(vector3(14.0f, 14.0f, 14.0f)));
 	GOMngr->SetGO(
 		"RightWall_2",
 		"Wall.obj",
 		"wall",
-		glm::translate(vector3(28.0f, 7.5f, 14.0f)) * glm::scale(vector3(14.0f, 14.0f, 14.0f)));
+		glm::translate(vector3(28.0f, 7.5f, 14.0f)) * glm::rotate(180.0f, vector3(0, 1, 0)) * glm::scale(vector3(14.0f, 14.0f, 14.0f)));
 	GOMngr->SetGO(
 		"TopPathWall",
 		"Wall.obj",
